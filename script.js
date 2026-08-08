@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isTouch = window.matchMedia('(hover: none)').matches;
 
   /* Navbar scroll state */
@@ -48,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.15 });
   revealEls.forEach(el => revealObserver.observe(el));
 
-  /* Typing effect for hero role — always runs, regardless of reduced-motion setting */
+  /* Typing effect for hero role */
   const roles = ['HR Operations', 'HR Executive', 'HR Coordinator'];
   const typedEl = document.getElementById('typedRole');
   if (typedEl) {
@@ -84,10 +83,10 @@ document.addEventListener('DOMContentLoaded', () => {
     tick();
   }
 
-  /* 3D laptop mouse tilt */
+  /* 3D laptop mouse tilt — now always active, regardless of motion settings */
   const scene = document.querySelector('.hero-visual');
   const laptop = document.getElementById('laptop3d');
-  if (scene && laptop && !prefersReducedMotion && !isTouch) {
+  if (scene && laptop && !isTouch) {
     scene.addEventListener('mousemove', (e) => {
       const rect = scene.getBoundingClientRect();
       const x = (e.clientX - rect.left) / rect.width - 0.5;

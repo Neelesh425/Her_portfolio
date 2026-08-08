@@ -179,8 +179,3 @@ section { padding: 120px 0; }
   .lp-screen { width: 180px; height: 120px; }
   .lp-base { width: 220px; left: -20px; top: 120px; }
 }
-
-/* Respect reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
-}
