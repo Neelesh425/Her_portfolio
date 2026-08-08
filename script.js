@@ -48,44 +48,40 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.15 });
   revealEls.forEach(el => revealObserver.observe(el));
 
-  /* Typing effect for hero role */
+  /* Typing effect for hero role — always runs, regardless of reduced-motion setting */
   const roles = ['HR Operations', 'HR Executive', 'HR Coordinator'];
   const typedEl = document.getElementById('typedRole');
   if (typedEl) {
-    if (prefersReducedMotion) {
-      typedEl.textContent = roles[0];
-    } else {
-      let roleIndex = 0;
-      let charIndex = 0;
-      let deleting = false;
+    let roleIndex = 0;
+    let charIndex = 0;
+    let deleting = false;
 
-      const tick = () => {
-        const current = roles[roleIndex];
+    const tick = () => {
+      const current = roles[roleIndex];
 
-        if (!deleting) {
-          charIndex++;
-          typedEl.textContent = current.slice(0, charIndex);
-          if (charIndex === current.length) {
-            deleting = true;
-            setTimeout(tick, 1400);
-            return;
-          }
-          setTimeout(tick, 90);
-        } else {
-          charIndex--;
-          typedEl.textContent = current.slice(0, charIndex);
-          if (charIndex === 0) {
-            deleting = false;
-            roleIndex = (roleIndex + 1) % roles.length;
-            setTimeout(tick, 400);
-            return;
-          }
-          setTimeout(tick, 40);
+      if (!deleting) {
+        charIndex++;
+        typedEl.textContent = current.slice(0, charIndex);
+        if (charIndex === current.length) {
+          deleting = true;
+          setTimeout(tick, 1400);
+          return;
         }
-      };
+        setTimeout(tick, 90);
+      } else {
+        charIndex--;
+        typedEl.textContent = current.slice(0, charIndex);
+        if (charIndex === 0) {
+          deleting = false;
+          roleIndex = (roleIndex + 1) % roles.length;
+          setTimeout(tick, 400);
+          return;
+        }
+        setTimeout(tick, 40);
+      }
+    };
 
-      tick();
-    }
+    tick();
   }
 
   /* 3D laptop mouse tilt */
